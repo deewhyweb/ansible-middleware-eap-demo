@@ -1,0 +1,9 @@
+---
+mysqldb:
+  mysqldata: "{{ overrides_mysqldata_mysql | default('/var/lib/mysql/data') }}"
+  packages_list:
+    - mysql-server
+  db:
+    name: "{{  database.name }}"
+    user: "{{  database.user }}"
+    password: "{{  database.password }}"

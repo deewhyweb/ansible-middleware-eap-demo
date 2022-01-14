@@ -1,0 +1,11 @@
+---
+database:
+  name: "wildfly"
+  user: "wildfly"
+  password: "wildfly"
+jdbc_driver_module_dir: "{{ wildfly_home }}/modules/com/mysql/main"
+jdbc_driver_version: "{{ override_mysql_jdbc_driver_version | default('8.0.26') }}"
+jdbc_driver_jar_filename: "mysql-connector-java-{{ jdbc_driver_version }}.jar"
+jdbc_driver_jar_url: "https://github.com/deewhyweb/eap-quickstarts/raw/7.4.x/kitchensink/modules/com/mysql/main/mysql-connector-java-8.0.26.jar"
+jdbc_driver_jar_installation_path: "{{ jdbc_driver_module_dir }}/{{ jdbc_driver_jar_filename }}"
+jdbc_driver_module_name: 'com.mysql'

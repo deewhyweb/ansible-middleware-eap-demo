@@ -1,0 +1,7 @@
+---
+# Mysql playbook
+- import_playbook: mysql.yml
+
+
+# Wildfly Playbook
+- import_playbook: wildfly.yml

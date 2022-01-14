@@ -1,0 +1,15 @@
+# Placeholder Group
+[demo]
+
+# Wildfly Group
+[wildfly]
+192.168.122.11
+192.168.122.125
+
+# Mysql database Group
+[mysql]
+192.168.122.84
+
+[demo:children]
+wildfly
+mysql
