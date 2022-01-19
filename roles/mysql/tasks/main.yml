@@ -1,10 +1,9 @@
-- name: "Install mysql and relate packages"
-  include_role:
-    name: fastpackages
-  vars:
-    packages_list: "{{ mysqldb.packages_list }}"
-
-
+- name: "Check for presence of mysql-server and install if not present"
+  become: yes
+  yum:
+    name: mysql-server
+    state: latest
+    
 - name: Override variables for MySQL (RedHat).
   set_fact:
     mysql_daemon: mysqld
