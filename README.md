@@ -1,6 +1,6 @@
-# Wildfly with mysql drivers
+# JBoss EAP with mysql drivers
 
-This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [Wildfly](https://wildfly.org/) cluster, mysql database, mysql drivers, and kitchensink application configured to connect to mysql.
+This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [JBoss EAP](https://wildfly.org/) cluster, mysql database, mysql drivers, and kitchensink application configured to connect to mysql.
 
 These playbooks will install a single mysql instance on a dedicated server, and will deploy multiple Wildfly instances on individual servers.  These wildfly instances will be configured to connect to the mysql instance.  
 ## Prerequisites
@@ -40,7 +40,8 @@ mysql
 ```
 
 ## Execution
+You will need a valid Red Hat login in order to download JBoss EAP.   
+You can now run the playbook to set up the demo, inserting your RH login details to the command.
 
-That's all! You can now run the playbook to set up the demo:
 
-    $ ansible-playbook -i inventory/hosts demo.yml --extra-vars "rhn_username=philip@deewhy.ie rhn_password=KIN03der" 
+    $ ansible-playbook -i inventory/hosts demo.yml --extra-vars "rhn_username=<your_username> rhn_password=<your_password>"
