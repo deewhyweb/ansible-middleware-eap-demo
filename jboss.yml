@@ -1,13 +1,17 @@
 ---
 - name: "JBoss EAP installation and configuration"
-  hosts: wildfly
+  hosts: jboss
   become: yes
   vars:
     wildfly_install_workdir: '/opt'
-    install_name: "{{ override_install_name | default('wildfly') }}"
+    install_name: "{{ override_install_name | default('jboss') }}"
+    jboss_version: "7.4"
+    wildfly_version: "{{ jboss_version }}"
+    wildfly_archive_filename: "{{ install_name }}-eap-{{ wildfly_version }}.zip"
+
     wildfly_user: "{{ install_name }}"
     wildfly_config_base: standalone-ha.xml
-    wildfly_home: "{{ wildfly_install_workdir }}/{{ install_name }}-preview-{{ wildfly_version }}"
+    wildfly_home: "{{ wildfly_install_workdir }}/{{ install_name }}-eap-{{ wildfly_version }}"
     instance_http_ports:
       - 8180
       - 8280
@@ -19,6 +23,13 @@
     app:
       name: 'kitchensink.war'
       url: 'https://drive.google.com/uc?export=download&id=1QLfgvLBb_hU6FPH4RWBK8RASgeWzJuFC'
+    jdbc_driver_module_dir: "{{ wildfly_home }}/modules/com/mysql/main"
+    jdbc_driver_version: "{{ override_mysql_jdbc_driver_version | default('8.0.26') }}"
+    jdbc_driver_jar_filename: "mysql-connector-java-{{ jdbc_driver_version }}.jar"
+    jdbc_driver_jar_url: "https://github.com/deewhyweb/eap-quickstarts/raw/7.4.x/kitchensink/modules/com/mysql/main/mysql-connector-java-8.0.26.jar"
+    jdbc_driver_jar_installation_path: "{{ jdbc_driver_module_dir }}/{{ jdbc_driver_jar_filename }}"
+    jdbc_driver_module_name: 'com.mysql'
+    jboss_eap_rhn_id: "99481"
   collections:
     - middleware_automation.redhat_csp_download
     - middleware_automation.wildfly
@@ -28,7 +39,7 @@
     - wildfly_install
   tasks:
 
-    - name: "Set up for Wildfly instance {{ item }}"
+    - name: "Set up for JBoss instance {{ item }}"
       include_role:
         name: wildfly_systemd
       vars:
@@ -47,15 +58,7 @@
         url: "{{ app.url }}"
         dest: "{{ wildfly_install_workdir }}/{{ app.name }}"
 
-    - name: "Deploy webapp"
-      include_role:
-        name: jboss_eap
-        tasks_from: jboss_cli.yml
-      vars:
-        jboss_home: "{{ wildfly_home }}"
-        query: "'deploy --force {{ wildfly_install_workdir }}/{{ app.name }}'"
-        jboss_cli_controller_port: "{{ item }}"
-      loop: "{{ instance_management_ports }}"
+
 
     - name: "Set up module dir for mysql JDBC Driver"
       file:
@@ -65,7 +68,7 @@
         group: "{{ wildfly_user }}"
         owner: "{{ wildfly_user }}"
 
-    - name: "Ensures Wildfly mysql Driver is present"
+    - name: "Ensures JBoss mysql Driver is present"
       uri:
         url: "{{ jdbc_driver_jar_url }}"
         dest: "{{ jdbc_driver_jar_installation_path }}"
@@ -115,6 +118,17 @@
                   proxies:
                     - proxy1
       loop: "{{ instance_management_ports }}"
+
+    - name: "Deploy webapp"
+      include_role:
+        name: jboss_eap
+        tasks_from: jboss_cli.yml
+      vars:
+        jboss_home: "{{ wildfly_home }}"
+        query: "'deploy --force {{ wildfly_install_workdir }}/{{ app.name }}'"
+        jboss_cli_controller_port: "{{ item }}"
+      loop: "{{ instance_management_ports }}"
+
 
   post_tasks:
     - include_tasks: validate.yml

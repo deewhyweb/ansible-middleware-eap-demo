@@ -2,14 +2,14 @@
 [demo]
 
 # Wildfly Group
-[wildfly]
+[jboss]
 192.168.122.11
-192.168.122.125
+#192.168.122.125
 
 # Mysql database Group
 [mysql]
 192.168.122.84
 
 [demo:children]
-wildfly
+jboss
 mysql

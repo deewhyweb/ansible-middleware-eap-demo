@@ -4,4 +4,4 @@
 
 
 # Wildfly Playbook
-- import_playbook: wildfly.yml
+- import_playbook: jboss.yml

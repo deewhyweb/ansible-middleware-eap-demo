@@ -43,4 +43,4 @@ mysql
 
 That's all! You can now run the playbook to set up the demo:
 
-    $ ansible-playbook -i inventory/hosts demo.yml 
+    $ ansible-playbook -i inventory/hosts demo.yml --extra-vars "rhn_username=philip@deewhy.ie rhn_password=KIN03der" 

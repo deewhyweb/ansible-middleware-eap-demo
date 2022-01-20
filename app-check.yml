@@ -5,16 +5,16 @@
     quiet: true
 
 - set_fact:
-    result_file: "/tmp/info-{{ item }}.txt"
+    result_file: "/tmp/app-check-{{ item }}.txt"
 
 - get_url:
-    url: "http://localhost:{{ item }}/info/"
+    url: "http://localhost:{{ item }}/kitchensink/index.jsf"
     dest: "{{ result_file }}"
   changed_when: False
 
 - slurp:
     src: "{{ result_file }}"
-  register: info_res
+  register: appcheck_res
 
 - debug:
-    msg: "{{ info_res['content'] | b64decode }}"
+    msg: "{{ appcheck_res['content'] | b64decode }}"
