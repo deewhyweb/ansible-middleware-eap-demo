@@ -1,5 +1,7 @@
 ---
-database:
-  name: "wildfly"
-  user: "wildfly"
-  password: "wildfly"
+postgres:
+  db_name: wildfly
+  jndi_ds: AddressbookDS
+  user:
+    name: jboss
+    password: jboss

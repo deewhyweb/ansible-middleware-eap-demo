@@ -1,6 +1,6 @@
 ---
-# Mysql playbook
-- import_playbook: mysql.yml
+# Postgres playbook
+- import_playbook: postgresql.yml
 
 
 # Wildfly Playbook

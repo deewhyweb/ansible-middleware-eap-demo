@@ -1,6 +1,0 @@
-- name: yum remove mysql-server
-  become: true
-  yum:
-    name: item
-    state: absent
-  loop: "{{ mysqldb.packages_list }}"

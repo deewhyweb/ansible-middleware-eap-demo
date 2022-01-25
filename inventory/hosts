@@ -4,12 +4,12 @@
 # Wildfly Group
 [jboss]
 192.168.122.11
-#192.168.122.125
+192.168.122.125
 
 # Mysql database Group
-[mysql]
+[pgsql]
 192.168.122.84
 
 [demo:children]
 jboss
-mysql
+pgsql

@@ -8,7 +8,7 @@
     result_file: "/tmp/app-check-{{ item }}.txt"
 
 - get_url:
-    url: "http://localhost:{{ item }}/kitchensink/index.jsf"
+    url: "http://localhost:{{ item }}/addressbook/"
     dest: "{{ result_file }}"
   changed_when: False
 
