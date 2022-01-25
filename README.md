@@ -1,8 +1,8 @@
-# JBoss EAP with mysql drivers
+# JBoss EAP with postgresql drivers
 
-This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [JBoss EAP](https://wildfly.org/) cluster, mysql database, mysql drivers, and kitchensink application configured to connect to mysql.
+This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [JBoss EAP](https://wildfly.org/) cluster, postgresql database, postgresql drivers, and addressbook application configured to connect to postgresql.
 
-These playbooks will install a single mysql instance on a dedicated server, and will deploy multiple Wildfly instances on individual servers.  These wildfly instances will be configured to connect to the mysql instance.  
+These playbooks will install a single postgresql instance on a dedicated server, and will deploy multiple Wildfly instances on individual servers.  These Jboss EAP instances will be configured to connect to the postgresql instance.  
 ## Prerequisites
 2 or more RHEL 8.4+ vms with 4096mb per vm.
 
@@ -30,13 +30,13 @@ Ansible groups are used to define the Wildfly instances. Configure these groups 
 192.168.122.11
 192.168.122.125
 
-# Mysql database Group
-[mysql]
+# postgresql database Group
+[postgresql]
 192.168.122.84
 
 [demo:children]
 wildfly
-mysql
+postgresql
 ```
 
 ## Execution
