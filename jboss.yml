@@ -63,11 +63,6 @@
         url: "{{ app.url }}"
         dest: "{{ wildfly_install_workdir }}/{{ app.name }}"
 
-    - name: "Ensures JCliff version is appropriate"
-      yum:
-        name: jcliff-2.12.8
-        state: present
-
     - name: JCliff
       include_role:
         name: jcliff

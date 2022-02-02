@@ -1,4 +1,8 @@
 ---
 collections:
-  - middleware_automation.wildfly
-  - middleware_automation.jcliff
+  - name: middleware_automation.jcliff
+    version: ">=0.0.21"
+  - name: middleware_automation.wildfly
+    version: "==0.0.4"
+  - name: community.general
+  - name: community.postgresql

@@ -81,6 +81,10 @@
     state: present
   with_items: "{{ pgsql.db }}"
 
+- name: install firewalld
+  become: true
+  action: yum name=firewalld state=installed
+
 - name: Start firewalld
   become: true
   service: name=firewalld state=started enabled=yes
