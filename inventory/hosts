@@ -3,8 +3,8 @@
 
 # Wildfly Group
 [jboss]
-192.168.122.208 ansible_host=wildfly1
-192.168.122.122 ansible_host=wildfly2
+192.168.122.208 
+192.168.122.122 
 
 # Mysql database Group
 [pgsql]
