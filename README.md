@@ -34,9 +34,14 @@ Ansible groups are used to define the Wildfly instances. Configure these groups 
 [postgresql]
 192.168.122.84
 
+# jbbs Group
+[jbcs]
+192.168.122.85
+
 [demo:children]
 wildfly
 postgresql
+jbcs
 ```
 
 ## Execution
