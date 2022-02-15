@@ -16,6 +16,8 @@
       - 8080
     instance_management_ports:
       - 9990
+    instance_ajp_port:
+      - 8009
     app:
       name: 'addressbook.war'
       url: 'https://drive.google.com/uc?export=download&id=1HOfRNHFxuuQuCEtMFt1jhvlclIpz888D'
@@ -35,6 +37,19 @@
     - wildfly_install
     
   tasks:
+    - name: configure firewall for Wildfly ports
+      become: yes
+      firewalld:
+        port: "{{ port }}"
+        permanent: true
+        state: enabled
+        immediate: yes
+      loop:
+        - "{{ instance_http_ports[0] }}/tcp"
+        - "{{ instance_management_ports[0] }}/tcp"
+        - "{{ instance_ajp_port[0] }}/tcp"
+      loop_control:
+        loop_var: port
     - name: "Set up for JBoss module"
       include_role:
         name: wildfly_driver
@@ -48,9 +63,9 @@
         wildfly_basedir_prefix: "/opt/{{ install_name }}"
         wildfly_config_name: "{{ install_name }}"
         wildfly_port_range_offset: 0
-        wildfly_instance_name: "{{ install_name }}"
+        wildfly_instance_name: "{{ ansible_host }}"
         service_systemd_env_file: "/etc/{{ install_name }}.conf"
-        service_systemd_conf_file: "/usr/lib/systemd/system/{{ install_name }}.service"
+        service_systemd_conf_file: "/usr/lib/systemd/system/{{ wildfly_instance_name }}.service"
 
     - name: "Ensures webapp {{ app.name }} has been retrieved from {{ app.url }}"
       get_url:
@@ -60,7 +75,9 @@
     - name: JCliff
       include_role:
         name: jcliff
-  
+    - name: Modify sockets rule
+      become: false
+      local_action: template src=remote_sockets.j2 dest=./jcliff/rules/remote_sockets.jcliff.yml
  
     - name: "Fine tuning configuration"
       jcliff:
@@ -82,6 +99,11 @@
               driver_name: postgresql
               user_name: "{{ postgres.user.name }}"
               password: "{{ postgres.user.password }}"
+        - modcluster:
+            proxy:
+              - name: default
+                proxies:
+                  - proxy1
       loop: "{{ instance_management_ports }}"
 
     - name: "Deploy webapp"
