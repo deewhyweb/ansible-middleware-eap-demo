@@ -37,6 +37,9 @@
     - wildfly_install
     
   tasks:
+    - name: install firewalld
+      become: true
+      action: yum name=firewalld state=installed
     - name: configure firewall for Wildfly ports
       become: yes
       firewalld:

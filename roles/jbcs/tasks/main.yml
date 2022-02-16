@@ -12,7 +12,10 @@
     dest: /opt/jbcs-httpd24-2.4/httpd/conf.d/mod_cluster.conf
   notify:
     - 'expire mod_cluster cache and restart'
-
+- name: install firewalld
+  become: true
+  action: yum name=firewalld state=installed
+  
 - name: configure firewall for JBCS ports
   become: yes
   firewalld:
