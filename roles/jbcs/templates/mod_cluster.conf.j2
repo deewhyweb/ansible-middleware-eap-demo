@@ -20,7 +20,7 @@ EnableOptions
 
 <IfModule manager_module>
   Listen 6666
-  <VirtualHost {{ jbcs_host }}:{{ httpd.mod_cluster.port }}>
+  <VirtualHost *:6666>
     DirectoryIndex disabled
     <Directory />
       Require {{ httpd.mod_cluster.require }}
