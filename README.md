@@ -1,19 +1,19 @@
-# JBoss EAP with postgresql drivers
+# JBoss EAP with mod_cluster and postgresql drivers
 
-This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [JBoss EAP](https://wildfly.org/) cluster, postgresql database, postgresql drivers, and addressbook application configured to connect to postgresql.
+This repository contains a set of Ansible based roles and playbooks to demonstrate the deployment of a [JBoss EAP](https://wildfly.org/) cluster, load balancer, postgresql database, postgresql drivers, and addressbook application configured to connect to postgresql.
 
-These playbooks will install a single postgresql instance on a dedicated server, and will deploy multiple Wildfly instances on individual servers.  These Jboss EAP instances will be configured to connect to the postgresql instance.  
+These playbooks will install a single postgresql instance on a dedicated server, and will deploy JBoss EAP instances on individual servers.  These Jboss EAP instances will be configured to connect to the postgresql instance. Mod_cluster is deployed as a load balancer. 
 ## Prerequisites
-2 or more RHEL 8.4+ vms with 4096mb per vm.
+3 or more RHEL 8.4+ vms with 4096mb per vm.
 
 
 ## Set up
 
 The following sections describe the steps necessary to prepare your machine for execution
 
-### JCliff Integration
+### pre-requisites
 
-First of all, you'll need to install the [JCliff Ansible collection](https://github.com/middleware_automation/ansible_collections_jcliff):
+First of all, you'll need to install ansible collections.  This is done by running the following command:
 
     $ ansible-galaxy collection install -r molecule/default/requirements.yml
 
@@ -25,8 +25,8 @@ Ansible groups are used to define the Wildfly instances. Configure these groups 
 # Placeholder Group
 [demo]
 
-# Wildfly Group
-[wildfly]
+# jboss Group
+[jboss]
 192.168.122.11
 192.168.122.125
 
@@ -39,7 +39,7 @@ Ansible groups are used to define the Wildfly instances. Configure these groups 
 192.168.122.85
 
 [demo:children]
-wildfly
+jboss
 postgresql
 jbcs
 ```

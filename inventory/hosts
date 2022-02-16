@@ -1,12 +1,12 @@
 # Placeholder Group
 [demo]
 
-# Wildfly Group
+# jboss Group
 [jboss]
 192.168.122.208 
 192.168.122.122 
 
-# Mysql database Group
+# postgres database Group
 [pgsql]
 192.168.122.83
 
