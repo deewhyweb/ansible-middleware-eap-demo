@@ -15,6 +15,9 @@
 - name: install firewalld
   become: true
   action: yum name=firewalld state=installed
+- name: Start firewalld
+  become: true
+  service: name=firewalld state=started enabled=yes
 
 - name: configure firewall for JBCS ports
   become: yes
