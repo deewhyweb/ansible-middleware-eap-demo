@@ -1,3 +1,0 @@
----
-- name: "restart postgres"
-  include_tasks: tasks/restart_postgres.yml
