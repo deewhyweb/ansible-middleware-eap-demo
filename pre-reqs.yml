@@ -1,0 +1,10 @@
+---
+- name: Playbook for installing prerequisites
+  hosts: jbcs
+  tasks:
+    - name: "Install packages"
+      ansible.builtin.include_role:
+        name: fastpackages
+      vars:
+        packages_list:
+          - mailcap

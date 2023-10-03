@@ -1,0 +1,10 @@
+---
+collections:
+  - name: redhat.eap
+    version: "==1.4.3"
+  - name: community.general
+    version: "==7.4.0"
+  - name: community.postgresql
+    version: "==3.2.0"
+  - name: redhat.jbcs
+    version: "==1.0.1"
