@@ -13,7 +13,12 @@ The following sections describe the steps necessary to prepare your machine for 
 
 ### pre-requisites
 
-First of all, you'll need to install ansible collections.  This is done by running the following command:
+* Navigate to https://cloud.redhat.com/ansible/automation-hub/token/.
+* Click Load Token.
+* Click copy icon to copy the API token to the clipboard.
+
+
+Add your token to ansible.cfg, then you'll need to install ansible collections.  This is done by running the following command:
 
     $ ansible-galaxy collection install -r molecule/default/requirements.yml
 
@@ -45,8 +50,7 @@ jbcs
 ```
 
 ## Execution
-You will need a valid Red Hat login in order to download JBoss EAP.   
-You can now run the playbook to set up the demo, inserting your RH login details to the command.
+You need to provide the credentials associated with a service account. You can manage service accounts using the hybrid cloud console. Within this portal, on the [service accounts tab](https://console.redhat.com/application-services/service-accounts), you can create a new service account if one does not already exist. Copy your service account username and password and use these below.  You will also need to provide the external-domain-name of your frontend where JBCS is going to be deployed
 
 
-    $ ansible-playbook -i inventory/hosts demo.yml --extra-vars "rhn_username=<your_username> rhn_password=<your_password>"
+    `ansible-playbook -i inventory/hosts demo.yml --extra-vars "rhn_username=<your_username> rhn_password=<your_password> jbcs_external_domain_name=external-domain-name"`
