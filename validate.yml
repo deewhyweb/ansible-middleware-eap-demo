@@ -12,4 +12,4 @@
     dest: '/dev/null'
   changed_when: False
 
-- include_tasks: info.yml
+- include_tasks: app-check.yml

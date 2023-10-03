@@ -1,0 +1,15 @@
+---
+# Postgres playbook
+- import_playbook: postgresql.yml
+
+# Pre-reqs
+- import_playbook: pre-reqs.yml
+
+# SSL
+- import_playbook: ssl.yml
+
+# JBoss Core Services (Apache HTTPD)
+- import_playbook: jbcs.yml
+
+# JBoss EAP Playbook
+- import_playbook: jboss.yml
